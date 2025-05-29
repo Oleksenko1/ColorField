@@ -168,16 +168,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fieldUnitPrefab: {fileID: 6154575858435460170, guid: a83f97c5ed6b5fe44a70740afdedf20d, type: 3}
   ballPrefab: {fileID: 4320342497000475183, guid: c4e4d4d166ea72040b84d534fc125874, type: 3}
-  ballSpeed: 20
+  borderLayer:
+    serializedVersion: 2
+    m_Bits: 1024
+  ballSpeed: 10
   color1: {r: 0.0627451, g: 0.25490198, b: 0.30980393, a: 1}
   layerMask1:
     serializedVersion: 2
-    m_Bits: 1152
+    m_Bits: 128
   material1: {fileID: 2100000, guid: bb8379feb9ab8c9449f5a41cc6897fa5, type: 2}
   color2: {r: 0.7568628, g: 0.81568635, b: 0.7960785, a: 1}
   layerMask2:
     serializedVersion: 2
-    m_Bits: 1280
+    m_Bits: 256
   material2: {fileID: 2100000, guid: 3460b5e410c711140b88d190886255f6, type: 2}
 --- !u!1 &519420028
 GameObject:

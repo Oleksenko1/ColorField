@@ -109,4 +109,10 @@ public class PlayingField : MonoBehaviour
         ball.GetComponent<SpriteRenderer>().material = teamData.material;
     }
 
+    public void ToggleTeam(FieldUnit fieldUnit)
+    {
+        TeamData teamData = fieldUnit.teamData == teamOne ? teamTwo : teamOne;
+
+        fieldUnit.SetType(teamData);
+    }
 }

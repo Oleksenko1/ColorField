@@ -13,8 +13,6 @@ public class FieldUnit : MonoBehaviour
     {
         this.playingField = playingField;
 
-        spriteRenderer.material = teamData.material;
-
         SetType(teamData);
     }
     public void SetType(TeamData teamData)
@@ -23,9 +21,17 @@ public class FieldUnit : MonoBehaviour
 
         gameObject.layer = teamData.layer;
 
-        boxCollider2D.includeLayers = 1 << teamData.layer;
+        spriteRenderer.material = teamData.material;
 
         // TO DO: Method should change layerMask of unit collider
+    }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Ball"))
+        {
+            playingField.ToggleTeam(this);
+        }
     }
 
 }
