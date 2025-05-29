@@ -171,10 +171,12 @@ MonoBehaviour:
   layerMask1:
     serializedVersion: 2
     m_Bits: 128
+  material1: {fileID: 2100000, guid: bb8379feb9ab8c9449f5a41cc6897fa5, type: 2}
   color2: {r: 0.7568628, g: 0.81568635, b: 0.7960785, a: 1}
   layerMask2:
     serializedVersion: 2
     m_Bits: 256
+  material2: {fileID: 2100000, guid: 3460b5e410c711140b88d190886255f6, type: 2}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0

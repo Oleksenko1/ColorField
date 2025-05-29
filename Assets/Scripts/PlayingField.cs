@@ -9,9 +9,11 @@ public class PlayingField : MonoBehaviour
     [Header("Field data")]
     [SerializeField] private Color color1;
     [SerializeField] private LayerMask layerMask1;
+    [SerializeField] private Material material1;
     [Space(15)]
     [SerializeField] private Color color2;
     [SerializeField] private LayerMask layerMask2;
+    [SerializeField] private Material material2;
 
     private TeamData teamOne;
     private TeamData teamTwo;
@@ -20,14 +22,19 @@ public class PlayingField : MonoBehaviour
         teamOne = new TeamData
         {
             color = color1,
-            layer = LayerMaskToLayerIndex(layerMask1)
+            layer = LayerMaskToLayerIndex(layerMask1),
+            material = material1
         };
 
         teamTwo = new TeamData
         {
             color = color2,
-            layer = LayerMaskToLayerIndex(layerMask2)
+            layer = LayerMaskToLayerIndex(layerMask2),
+            material = material2
         };
+
+        material1.color = color1;
+        material2.color = color2;
 
         InitializeField();
     }

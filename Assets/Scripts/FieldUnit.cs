@@ -12,13 +12,14 @@ public class FieldUnit : MonoBehaviour
     {
         this.playingField = playingField;
 
+        spriteRenderer.material = teamData.material;
+
         SetType(teamData);
     }
     public void SetType(TeamData teamData)
     {
         this.teamData = teamData;
 
-        spriteRenderer.color = teamData.color;
         gameObject.layer = teamData.layer;
 
         // TO DO: Method should change layerMask of unit collider
