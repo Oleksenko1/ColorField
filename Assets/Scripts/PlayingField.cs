@@ -97,16 +97,10 @@ public class PlayingField : MonoBehaviour
 
         Vector3 spawnPos = new Vector2(xPos, yPos);
 
-        var ball = Instantiate(ballPrefab, spawnPos, Quaternion.identity);
-        ball.layer = teamData.layer;
+        Ball.Create(ballPrefab, spawnPos, ballSpeed, teamData);
 
         int borderLayerIndex = LayerMaskToLayerIndex(borderLayer);
         Physics2D.IgnoreLayerCollision(teamData.layer, borderLayerIndex, false);
-
-        var rb = ball.GetComponent<Rigidbody2D>();
-        rb.AddForce(Vector3.one * side * ballSpeed, ForceMode2D.Impulse);
-
-        ball.GetComponent<SpriteRenderer>().material = teamData.material;
     }
 
     public void ToggleTeam(FieldUnit fieldUnit)
