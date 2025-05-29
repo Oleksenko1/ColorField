@@ -1,10 +1,15 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayingField : MonoBehaviour
 {
-    private const int FIELD_SIZE = 20;
+    public const int FIELD_SIZE = 20;
+    /// <summary>
+    /// Returns team number that was changed
+    /// </summary>
+    public event Action<int> OnFieldChanged;
     [SerializeField] private GameObject fieldUnitPrefab;
     [SerializeField] private GameObject ballPrefab;
     [SerializeField] private LayerMask borderLayer;
@@ -92,8 +97,8 @@ public class PlayingField : MonoBehaviour
     /// <param name="side">-1 is left side, 1 is right side</param>
     private void SpawnBall(TeamData teamData, float unitWidth, int side)
     {
-        float xPos = Random.Range(FIELD_SIZE / 2 * side * unitWidth - side, side * unitWidth);
-        float yPos = Random.Range(FIELD_SIZE / 2 * -1 * unitWidth, FIELD_SIZE / 2 - 1 * unitWidth);
+        float xPos = UnityEngine.Random.Range(FIELD_SIZE / 2 * side * unitWidth - side, side * unitWidth);
+        float yPos = UnityEngine.Random.Range(FIELD_SIZE / 2 * -1 * unitWidth, FIELD_SIZE / 2 - 1 * unitWidth);
 
         Vector3 spawnPos = new Vector2(xPos, yPos);
 
@@ -107,6 +112,20 @@ public class PlayingField : MonoBehaviour
     {
         TeamData teamData = fieldUnit.teamData == teamOne ? teamTwo : teamOne;
 
+        int teamNumber = fieldUnit.teamData == teamOne ? 1 : 2;
+
+        OnFieldChanged?.Invoke(teamNumber);
+
         fieldUnit.SetType(teamData);
+    }
+    public List<TeamData> GetTeams()
+    {
+        List<TeamData> teamList = new List<TeamData>
+        {
+            teamOne,
+            teamTwo
+        };
+
+        return teamList;
     }
 }
