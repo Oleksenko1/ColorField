@@ -5,6 +5,7 @@ using UnityEngine;
 public class FieldUnit : MonoBehaviour
 {
     [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] private BoxCollider2D boxCollider2D;
 
     private PlayingField playingField;
     public TeamData teamData;
@@ -21,6 +22,8 @@ public class FieldUnit : MonoBehaviour
         this.teamData = teamData;
 
         gameObject.layer = teamData.layer;
+
+        boxCollider2D.includeLayers = 1 << teamData.layer;
 
         // TO DO: Method should change layerMask of unit collider
     }

@@ -6,6 +6,10 @@ public class PlayingField : MonoBehaviour
 {
     private const int FIELD_SIZE = 20;
     [SerializeField] private GameObject fieldUnitPrefab;
+    [SerializeField] private GameObject ballPrefab;
+    [SerializeField] private LayerMask borderLayer;
+    [Header("Stats")]
+    [SerializeField] private float ballSpeed;
     [Header("Field data")]
     [SerializeField] private Color color1;
     [SerializeField] private LayerMask layerMask1;
@@ -43,6 +47,7 @@ public class PlayingField : MonoBehaviour
         float unitWidth = fieldUnitPrefab.transform.localScale.x;
         float offset = unitWidth / 2;
 
+        // Spawning units
         for (int x = FIELD_SIZE / 2 * -1; x < FIELD_SIZE / 2; x++)
         {
             for (int y = FIELD_SIZE / 2 * -1; y < FIELD_SIZE / 2; y++)
@@ -60,6 +65,10 @@ public class PlayingField : MonoBehaviour
                 unitObject.transform.SetParent(transform);
             }
         }
+
+        // Spawning balls 
+        SpawnBall(teamOne, unitWidth, 1);
+        SpawnBall(teamTwo, unitWidth, -1);
     }
 
     private int LayerMaskToLayerIndex(LayerMask mask)
@@ -73,6 +82,31 @@ public class PlayingField : MonoBehaviour
         }
 
         return Mathf.RoundToInt(Mathf.Log(value, 2));
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="teamData"></param>
+    /// <param name="unitWidth"></param>
+    /// <param name="side">-1 is left side, 1 is right side</param>
+    private void SpawnBall(TeamData teamData, float unitWidth, int side)
+    {
+        float xPos = Random.Range(FIELD_SIZE / 2 * side * unitWidth - side, side * unitWidth);
+        float yPos = Random.Range(FIELD_SIZE / 2 * -1 * unitWidth, FIELD_SIZE / 2 - 1 * unitWidth);
+
+        Vector3 spawnPos = new Vector2(xPos, yPos);
+
+        var ball = Instantiate(ballPrefab, spawnPos, Quaternion.identity);
+        ball.layer = teamData.layer;
+
+        int borderLayerIndex = LayerMaskToLayerIndex(borderLayer);
+        Physics2D.IgnoreLayerCollision(teamData.layer, borderLayerIndex, false);
+
+        var rb = ball.GetComponent<Rigidbody2D>();
+        rb.AddForce(Vector3.one * side * ballSpeed, ForceMode2D.Impulse);
+
+        ball.GetComponent<SpriteRenderer>().material = teamData.material;
     }
 
 }
